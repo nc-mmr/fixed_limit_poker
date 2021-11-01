@@ -74,7 +74,7 @@ export class PokerTableComponent implements OnInit, OnChanges {
       playerstate.next_to_act = true
     }
     if( this.history[this.step].player == player){
-      playerstate.action = this.history[this.step].action
+      playerstate.action = this.getActionText(this.history[this.step].action)
     }else{
       playerstate.action = ''
     }
@@ -118,6 +118,38 @@ export class PokerTableComponent implements OnInit, OnChanges {
 
   getStageIndex(stage: Stage) {
     return this.history.findIndex(x => x.action == stage.toString().toLocaleUpperCase())
+  }
+
+
+  getActionText(action: string){
+    let actionText = "";
+    switch(action) { 
+      case "small_blind": { 
+         actionText = "Small blind";
+         break; 
+      } 
+      case "big_blind": { 
+        actionText = "Big blind";
+         break; 
+      }
+      case "RAISE": { 
+        actionText = "Raise";
+         break; 
+      }
+      case "CALL": { 
+        actionText = "Call";
+         break; 
+      }
+      case "FOLD": { 
+        actionText = "Foldq";
+         break; 
+      }
+      default: { 
+        actionText = ""
+         break; 
+      }       
+   } 
+   return actionText;
   }
 }
 

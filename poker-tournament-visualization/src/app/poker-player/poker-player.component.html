@@ -2,13 +2,11 @@
 
     <p class="name">{{player.name}}</p>
     <div class="background">
-        <div class="container">
+         
             <div class="head" [ngClass]="{'glow' : playerState.next_to_act}">
-                <img [src]="imgurl">                
+                <img [src]="imgurl">
+                <div class="action">{{playerState.action}}</div>
             </div>
-            <div class="action">{{playerState.action}}</div>  
-        </div>
-              
         <label class="chips">{{playerState.chips_wagered}}</label>
         <div class="chips_wagered">
             <app-stacker [valor]="playerState.chips_wagered"></app-stacker>
