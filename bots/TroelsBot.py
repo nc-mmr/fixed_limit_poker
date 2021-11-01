@@ -7,7 +7,6 @@ from utils.handValue import getHandPercent, getHandType, getHighestSuitCount, ge
 
 
 class TroelsBot(BotInterface):
-
     def __init__(self, name="TroelsBot"):
         super().__init__(name=name)
 
@@ -15,48 +14,29 @@ class TroelsBot(BotInterface):
         stage = observation.stage
         if stage == Stage.PREFLOP:
             return self.getNearestAction(self.handlePreFlop(observation), action_space)
-        elif stage == Stage.FLOP:
-            return self.getNearestAction(self.handleFlop(observation), action_space)
-        elif stage == Stage.TURN:
-            return self.getNearestAction(self.handleTurn(observation), action_space)
-        elif stage == Stage.RIVER:
-            return self.getNearestAction(self.handleRiver(observation), action_space)
 
-        # Unexpected!
-        return Action.FOLD
+        return self.getNearestAction(self.handleFlop(observation), action_space)
 
     def handlePreFlop(self, observation: Observation) -> Action:
         handPercent, _ = getHandPercent(observation.myHand)
-        if handPercent < .80:
+        raise_percent = 0.4
+        if self.otherPlayerActions(observation, Action.RAISE) >= 1:
+            raise_percent *= .5
+        if handPercent < raise_percent:
             return Action.RAISE
-        elif handPercent < .90:
+        elif handPercent < raise_percent * 2:
             return Action.CALL
         return Action.FOLD
+
+    def otherPlayerActions(self, observation, action: Action):
+        return observation.players[observation.myPosition - 1].history[observation.stage].count(action)
 
     def handleFlop(self, observation: Observation) -> Action:
-        handPercent, cards = getHandPercent(
+        handPercent, _ = getHandPercent(
             observation.myHand, observation.boardCards)
-        if handPercent <= .50:
+        if handPercent <= .30:
             return Action.RAISE
-        elif handPercent <= .90 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
-            return Action.CALL
-        return Action.FOLD
-
-    def handleTurn(self, observation: Observation) -> Action:
-        handPercent, cards = getHandPercent(
-            observation.myHand, observation.boardCards)
-        if handPercent <= .50:
-            return Action.RAISE
-        elif handPercent <= .70 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
-            return Action.CALL
-        return Action.FOLD
-
-    def handleRiver(self, observation: Observation) -> Action:
-        handPercent, cards = getHandPercent(
-            observation.myHand, observation.boardCards)
-        if handPercent <= .80:
-            return Action.RAISE
-        elif handPercent <= .90:
+        elif handPercent <= .80:
             return Action.CALL
         return Action.FOLD
 
@@ -66,13 +46,3 @@ class TroelsBot(BotInterface):
                 return Action.CHECK
             action = Action(action.value-1)
         return action
-
-    def getFlushDraw(self, observation: Observation):
-        count, suit = getHighestSuitCount(
-            observation.myHand, observation.boardCards)
-        return count == 4
-
-    def getStraightDraw(self, observation: Observation):
-        count, lowRank, highRank = getLongestStraight(
-            observation.myHand, observation.boardCards)
-        return count == 4

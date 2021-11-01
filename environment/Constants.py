@@ -2,7 +2,10 @@
 from enum import IntEnum
 
 RANKS = '23456789TJQKA'
-SUITS = 'dchs' # '2h'
+SUITS = 'dchs'
+
+# Example of 
+# '2h'
 
 class Action(IntEnum):
     """Allowed actions"""

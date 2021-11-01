@@ -40,6 +40,8 @@ def getHandType(hand: List[str], board: List[str] = []) -> Tuple[HandType, List[
         rank, cards = evaluator.evaluate(d_hand, d_board)
         return HandType(evaluator.get_rank_class(rank)), [Card.int_to_pretty_str(c) for c in cards]
 
+# 2d 3d 4d
+# 
 def getLongestStraight(hand: List[str], board: List[str] = []) -> Tuple[int, str, str]:
     cardRanks = [RANKS.index(c[0]) for c in hand + board]
     if RANKS.index('A') in cardRanks:

@@ -20,11 +20,10 @@ PATH_TO_BOTS_RELATIVE = f"results\\{PRETTY_TIMESTAMP}\\bots"
 PATH_TO_BOTS = join(dirname(__file__), PATH_TO_BOTS_RELATIVE)
 
 BOT_LOCATIONS = [
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
-    "https://gist.githubusercontent.com/VirtualSatai/3b329b8224cdb91ac67da296d630edba/raw/GistBot2.py",
-    "https://gist.githubusercontent.com/VirtualSatai/3b329b8224cdb91ac67da296d630edba/raw/GistBot2.py"
+    "https://raw.githubusercontent.com/Abstrakten/fixed_limit_poker/main/bots/gusBot.py",
+    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/troels-bot/bots/TroelsBot.py",
+    "https://raw.githubusercontent.com/simonvandel/fixed_limit_poker/simple/bots/SimonBot.py",
+    "https://gist.githubusercontent.com/TriXXeD/5257bf01c9a89ebde8252f4a0c152ee6/raw/gistfile1.py",
 ]
 
 
@@ -111,6 +110,7 @@ def main():
 
     # run the tournament with them
     challenge.PARTICIPANTS = bots
+    challenge.TOTAL_ROUNDS = 1000
     # challenge.TIMESTAMP = NOW
     res = challenge.main()
 
