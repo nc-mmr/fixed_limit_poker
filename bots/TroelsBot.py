@@ -27,18 +27,18 @@ class TroelsBot(BotInterface):
 
     def handlePreFlop(self, observation: Observation) -> Action:
         handPercent, _ = getHandPercent(observation.myHand)
-        if handPercent < .40:
+        if handPercent < .80:
             return Action.RAISE
-        elif handPercent < .60:
+        elif handPercent < .90:
             return Action.CALL
         return Action.FOLD
 
     def handleFlop(self, observation: Observation) -> Action:
         handPercent, cards = getHandPercent(
             observation.myHand, observation.boardCards)
-        if handPercent <= .60:
+        if handPercent <= .50:
             return Action.RAISE
-        elif handPercent <= .80 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
+        elif handPercent <= .90 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
             return Action.CALL
         return Action.FOLD
 
@@ -54,9 +54,9 @@ class TroelsBot(BotInterface):
     def handleRiver(self, observation: Observation) -> Action:
         handPercent, cards = getHandPercent(
             observation.myHand, observation.boardCards)
-        if handPercent <= .40:
+        if handPercent <= .80:
             return Action.RAISE
-        elif handPercent <= .60:
+        elif handPercent <= .90:
             return Action.CALL
         return Action.FOLD
 
