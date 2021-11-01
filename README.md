@@ -53,7 +53,7 @@ Todo liste
 - [ ] Check/fold
 - [ ] Forklar handValue utils.
 - [ ] Template bot som de kan starte med (tom implementation)
-- [ ] 
+- [ ] Downgrade bots
 
 Nice to have:
 
