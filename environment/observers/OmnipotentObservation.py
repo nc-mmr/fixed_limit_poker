@@ -5,6 +5,7 @@ from pyfancy.pyfancy import pyfancy
 
 from environment.Constants import Stage
 from environment.PlayerObservation import PlayerObservation
+from utils.handValue import getHandPercent
 
 
 class OmnipotentObservation:
@@ -29,7 +30,7 @@ class OmnipotentObservation:
         pots = pyfancy().green(pots_str).get()
 
         player_hands_list = [
-            f"'{ph[0]}': {' '.join(ph[1])}" for ph in self.hands.items()]
+            f"'{ph[0]}': {' '.join(ph[1])} ({round(getHandPercent(ph[1], self.boardCards)[0], 2)})" for ph in self.hands.items()]
         player_hands = pyfancy().yellow(" ".join(player_hands_list)).get()
         current_board = " ".join(self.boardCards)
         community = pyfancy().blue(f'Community: {current_board}').get()
