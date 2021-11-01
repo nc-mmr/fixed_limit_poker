@@ -54,6 +54,7 @@ Todo liste
 - [ ] Forklar handValue utils.
 - [ ] Template bot som de kan starte med (tom implementation)
 - [ ] Downgrade bots
+- [ ] Make a raise loop cause a check/call rather than fold
 
 Nice to have:
 
