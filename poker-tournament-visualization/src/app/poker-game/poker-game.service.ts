@@ -56,6 +56,7 @@ export interface PlayerState {
   chips_wagered: number;
   stack: number;
   next_to_act: boolean;
+  action: string;
 }
 
 export enum Stage {
