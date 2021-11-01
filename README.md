@@ -27,7 +27,7 @@ Todo liste
 - [X] Tilføj tests - Bovle
 - [ ] Lav UI - Harder
   - [x]  slider for hænder i kamp
-  - [ ]  vis action som skrift på avatar
+  - [x]  vis action som skrift på avatar
   - [ ]  vis score for kamp
   - [ ]  vis hånd typer ved showdown
   - [ ]  vis chips vundet ved showdown
