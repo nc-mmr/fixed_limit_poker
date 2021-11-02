@@ -13,10 +13,11 @@ To setup your environment do the following:
 
 Developing your bot
 ===================
-1. In the `bots` folder, create a file with the name of your bot i.e. `ChallengerBot.py`
+1. In the `bots` folder, create a file with the name of your bot i.e. `FBL_Bot.py`
 2. Copy the contents from `TemplateBot.py` into it
-
-
+3. Add you bot to main.py
+4. Test your bot using the debug() or benchmark() functions in main.py
+5. Commit your changes to the forked repository you created in 'Getting started'
 
 
 Todo liste
