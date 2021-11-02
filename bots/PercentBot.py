@@ -4,7 +4,7 @@ from typing import Dict, Sequence
 from bots.BotInterface import BotInterface
 from environment.Constants import RANKS, Action, HandType, Stage
 from environment.Observation import Observation
-from utils.handValue import getHandPercent, getHandType, getHighestSuitCount, getLongestStraight
+from utils.handValue import getHandPercent
 
 
 class PercentBot(BotInterface):
@@ -13,66 +13,38 @@ class PercentBot(BotInterface):
         super().__init__(name=name)
 
     def act(self, action_space: Sequence[Action], observation: Observation) -> Action:
+        # use different strategy depending on pre or post flop (before or after community cards are delt)
         stage = observation.stage
         if stage == Stage.PREFLOP:
-            return self.getNearestAction(self.handlePreFlop(observation), action_space)
-        elif stage == Stage.FLOP:
-            return self.getNearestAction(self.handleFlop(observation), action_space)
-        elif stage == Stage.TURN:
-            return self.getNearestAction(self.handleTurn(observation), action_space)
-        elif stage == Stage.RIVER:
-            return self.getNearestAction(self.handleRiver(observation), action_space)
+            return self.handlePreFlop(observation)
+        else:
+            return self.handlePostFlop(observation)
         
         # Unexpected!
         return Action.FOLD
 
     def handlePreFlop(self, observation: Observation) -> Action:
+        # get my hand's percent value (how good is this 2 card hand out of all possible 2 card hands)
         handPercent, _ = getHandPercent(observation.myHand)
+        # if my hand is top 40 percent: raise
         if handPercent < .40:
             return Action.RAISE
+        # if my hand is top 60 percent: call
         elif handPercent < .60:
             return Action.CALL
+        # else fold
         return Action.FOLD
 
-    def handleFlop(self, observation: Observation) -> Action:
+    def handlePostFlop(self, observation: Observation) -> Action:
+        # get my hand's percent value (how good is the best 5 card hand i can make out of all possible 5 card hands)
         handPercent, cards = getHandPercent(
             observation.myHand, observation.boardCards)
+        # if my hand is top 60 percent: raise
         if handPercent <= .60:
             return Action.RAISE
-        elif handPercent <= .80 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
+        # if my hand is top 80 percent: call
+        elif handPercent <= .80:
             return Action.CALL
+        # else fold
         return Action.FOLD
-
-    def handleTurn(self, observation: Observation) -> Action:
-        handPercent, cards = getHandPercent(
-            observation.myHand, observation.boardCards)
-        if handPercent <= .50:
-            return Action.RAISE
-        elif handPercent <= .70 or self.getFlushDraw(observation) or self.getStraightDraw(observation):
-            return Action.CALL
-        return Action.FOLD
-
-    def handleRiver(self, observation: Observation) -> Action:
-        handPercent, cards = getHandPercent(
-            observation.myHand, observation.boardCards)
-        if handPercent <= .40:
-            return Action.RAISE
-        elif handPercent <= .60:
-            return Action.CALL
-        return Action.FOLD
-
-    def getNearestAction(self, action: Action, actionSpace: Sequence[Action]) -> Action:
-        while action not in actionSpace:
-            if action.value == 0:
-                return Action.CHECK
-            action = Action(action.value-1)
-        return action
-
-    def getFlushDraw(self, observation: Observation):
-        count, suit = getHighestSuitCount(observation.myHand, observation.boardCards)
-        return count == 4
-
-    def getStraightDraw(self, observation: Observation):
-        count, lowRank, highRank = getLongestStraight(observation.myHand, observation.boardCards)
-        return count == 4
 

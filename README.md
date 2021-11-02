@@ -14,7 +14,7 @@ To setup your environment do the following:
 Developing your bot
 ===================
 1. In the `bots` folder, create a file with the name of your bot i.e. `ChallengerBot.py`
-2. Copy the contents from `EmptyBot.py` into it
+2. Copy the contents from `TemplateBot.py` into it
 
 
 
@@ -49,12 +49,10 @@ Todo liste
   - [X] Gather results (in observer?) 
   - [X] Upload raw data to Google sheets
   - [X] Make Google Sheet that displays data in a pretty way
-- [ ] Refactor Call and Check into CALL_CHECK
-- [ ] Check/fold
-- [ ] Forklar handValue utils.
-- [ ] Template bot som de kan starte med (tom implementation)
-- [ ] Downgrade bots
-- [ ] Make a raise loop cause a check/call rather than fold
+- [X] Forklar handValue utils.
+- [X] Template bot som de kan starte med (tom implementation)
+- [X] Downgrade bots
+- [X] Make a raise loop cause a check/call rather than fold
 
 Nice to have:
 

@@ -69,7 +69,7 @@ class FixedLimitPoker:
 
     def step(self, action:Action) -> Tuple[List[Action],Observation,int,bool] :
         if not action in self.actionSpace:
-            action = self.checkFold()
+            action = self.getNearestAllowedAction(action)
         self.executeStep(action)
         self.nextPlayer(action)
         
@@ -210,8 +210,10 @@ class FixedLimitPoker:
                 contributions.append(player.contribution)
         return len(set(contributions)) == 1
         
-    def checkFold(self) -> Action:
-        if Action.CHECK in self.actionSpace:
+    def getNearestAllowedAction(self, action:Action) -> Action:
+        if action == Action.RAISE:
+            return Action.CALL
+        elif action == Action.CALL or action == Action.FOLD:
             return Action.CHECK
         else:
             return Action.FOLD
