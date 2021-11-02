@@ -1,21 +1,30 @@
-import itertools
-import pandas as pd
-from bots import PercentBot
-from bots.CounterBot import CounterBot
-from bots.TemplateBot import TemplateBot
-from environment.FixedLimitPoker import FixedLimitPoker
 from environment.observers.LoggingObserver import LoggingObserver
+from environment.FixedLimitPoker import FixedLimitPoker
+from bots.TemplateBot import TemplateBot
+from bots.CounterBot import CounterBot
+from bots import PercentBot
+import pandas as pd
+import itertools
 
 
 def debug():
     observers = [LoggingObserver()]
-    env = FixedLimitPoker(
-        [PercentBot(), TemplateBot()], observers=observers)
+    env = FixedLimitPoker([
+        # Change the bots here to change the participants
+        PercentBot(),
+        TemplateBot()
+    ], observers=observers)
     env.reset()
     env.reset(rotatePlayers=True)
 
+
 def benchmark():
-    bots = [CounterBot(),PercentBot()]#,TemplateBot()]
+    bots = [
+        # Change the bots here to change the participants
+        CounterBot(),
+        PercentBot(),
+        # TemplateBot(),
+    ]
     combinations = list(itertools.combinations(bots, 2))
     roundsPerPair = 1000
     cols = [x.name for x in bots]
@@ -31,8 +40,10 @@ def benchmark():
             stats[p2.bot.name][p1.bot.name] += p2.reward
             stats[p2.bot.name]["sum"] += p2.reward
     for bot in bots:
-        stats[bot.name]["pr. round"] = stats[bot.name]["sum"] / (roundsPerPair*(len(bots)-1))
+        stats[bot.name]["pr. round"] = stats[bot.name]["sum"] / \
+            (roundsPerPair*(len(bots)-1))
     print(stats)
 
-#benchmark()
+
+# benchmark()
 debug()
