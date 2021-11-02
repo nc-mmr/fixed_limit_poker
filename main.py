@@ -1,8 +1,6 @@
 from environment.observers.LoggingObserver import LoggingObserver
 from environment.FixedLimitPoker import FixedLimitPoker
-from bots.TemplateBot import TemplateBot
-from bots.CounterBot import CounterBot
-from bots import PercentBot
+from bots import TemplateBot, CounterBot, PercentBot
 import pandas as pd
 import itertools
 
