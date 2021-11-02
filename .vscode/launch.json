@@ -5,19 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "firefox",
+            "name": "Python: Main",
+            "type": "python",
             "request": "launch",
-            "reAttach": true,
-            "name": "Debug poker-tournament-visualization in Firefox",
-            "url": "http://localhost:4200/",
-            "webRoot": "${workspaceFolder}//poker-tournament-visualization"
+            "program": "main.py",
+            "console": "integratedTerminal"
         },
         {
-            "command": "npm start",
-            "name": "Start poker-tournament-visualization",
+            "name": "Python: Challenge",
+            "type": "python",
             "request": "launch",
-            "type": "node-terminal",
-            "cwd": "${workspaceFolder}/poker-tournament-visualization"
+            "program": "challenge.py",
+            "console": "integratedTerminal"
         },
         {
             "name": "Python: tests",
@@ -37,20 +36,6 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Python: Main",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Python: Challenge",
-            "type": "python",
-            "request": "launch",
-            "program": "challenge.py",
-            "console": "integratedTerminal"
-        },
-        {
             "name": "Python: Tournament",
             "type": "python",
             "request": "launch",
@@ -63,6 +48,21 @@
             "request": "launch",
             "program": "read_results.py",
             "console": "integratedTerminal"
-        }
+        },
+        {
+            "type": "firefox",
+            "request": "launch",
+            "reAttach": true,
+            "name": "Debug poker-tournament-visualization in Firefox",
+            "url": "http://localhost:4200/",
+            "webRoot": "${workspaceFolder}//poker-tournament-visualization"
+        },
+        {
+            "command": "npm start",
+            "name": "Start poker-tournament-visualization",
+            "request": "launch",
+            "type": "node-terminal",
+            "cwd": "${workspaceFolder}/poker-tournament-visualization"
+        },
     ]
 }
