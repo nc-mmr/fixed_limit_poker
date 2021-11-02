@@ -223,7 +223,7 @@ class FixedLimitPoker:
             startTime = time.time()
             move = self.getCurrentPlayer().bot.act(self.actionSpace, self.getObservation())
             actTime = time.time() - startTime
-            if actTime >= 1:
+            if not __debug__ and actTime >= 1:
                 move = Action.FOLD
                 print(f"Bot: '{self.getCurrentPlayer().bot.name}' took too long ({actTime}) to return. Folding on their behalf.")
         except Exception as ex:
