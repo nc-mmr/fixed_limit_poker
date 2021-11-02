@@ -27,33 +27,49 @@ def getHandPercent(hand: Sequence[str], board: Sequence[str] = []) -> Tuple[floa
                 board (list[str]): board cards (['Ah','Jh', 'Th'] or ['3s', '9c', '7h', '8d', 'Jc'] or ...) Optional
             returns:
                 tuple of:
-                    (float) hand rank as a percent out of all posible hands. low is better (0.234 or 0.8325 or ...)
-                    (list[str]) cards in the best hand. (['3s', '9c', '7h', '8d', 'Jc'])
+                    (float): hand rank as a percent out of all posible hands. low is better (0.234 or 0.8325 or ...)
+                    (list[str]): cards in the best hand (['3s', '9c', '7h', '8d', 'Jc'])
 
         if board is not given:
-            calculate the hand rank of the 2 player cards compared to all other 2 card hands
+            calculate the hand rank of the 2 player cards compared to all other 2 card hands   
+
             the card list returned with this is always just the cards given in 'hand'
+
             the 2 card hands are ranked based on the rankings found here: https://www.pokerhandrange.com/
+
             examples:
                 ('As','Ah') is the best hand to have
+
                 There are 6 combinations of this hand (2 aces), 0 combinations of better hands and 1326 combinations total of any 2 cards
+
                 this function therefore returns 6/1326 = 0.0045248... = 0.45%
+
                 Pocket aces is in the top 0.45% of all 2 card hands
 
+
                 ('3s','2h') is the worst hand to have (in 1v1 poker)
+
                 there are 12 combinations of this hand (3 and 2 not of the same suit), 1314 combinations of better hands and 1326 combinations total of any 2 cards
+
                 this function therefore returns (12+1814)/1326 = 1... = 100%
+
                 2 and 3 not of the same suit is in the top 100% of all 2 card hands
             
         
         if the board is given:
             calculates the best 5 card hand out of all input cards
+
             then calculates the rank of the 5 card hand out of all possible 5 card hands
+
             the card list returned with this is the 5 cards used to rank the hand
 
+
             NB! this ranking does not consider if a hand is possible given the board cards
+
             That is, even if the board cards do not make a flush possible, flushes are still considered part of 'all possible 5 card hands'
+
             So the best possible hand given the board cards might not even be in the top 15 % of hands
+
     '''
     if len(board) < 3:
         preflopHandType = _getPreflopHandType(hand)
@@ -74,23 +90,31 @@ def getHandType(hand: List[str], board: List[str] = []) -> Union[ Tuple[str, Lis
                 board (list[str]): board cards (['Ah','Jh', 'Th'] or ['3s', '9c', '7h', '8d', 'Jc'] or ...) Optional
             returns:
                 tuple of:
-                    (HandType/str) hand type (STRAIGHTFLUSH or FULLHOUSE or TWOPAIR or ...) or ('KK' or 'K4s' or 'K4o' or ...)
-                    (list[str]) cards in the best hand. (['3s', '9c', '7h', '8d', 'Jc'])
+                    (HandType/str): hand type (STRAIGHTFLUSH or FULLHOUSE or TWOPAIR or ...) or ('KK' or 'K4s' or 'K4o' or ...)
+                    (list[str]): cards in the best hand. (['3s', '9c', '7h', '8d', 'Jc'])
 
         if board is not given:
             Return the 2 card hand type
+
             the card list returned with this is always just the cards given in 'hand'
+
             examples:
                 'KK' = pair of kings
+
                 'K4s' = a king and a 4 in the same suit
+
                 'KTo' = a king and a 10 not in the same suit
 
         if the board is given:
             return the best 5 card poker hand type from the input cards
+
             the card list returned with this is the 5 cards used in the hand type
+
             example:
                 hand = ['3s', 'Ah']
+
                 board = ['As', '7s', 'Kh', '2d', 'Kc']
+
                 returns (HandType.TWOPAIR, ['Ah', 'As', '7s', 'Kh', 'Kc'])
         
     '''
@@ -170,6 +194,7 @@ def getBoardHandType(board: List[str]) -> HandType:
                 (HandType) hand type (THREEOFAKIND or PAIR or TWOPAIR or ...)
         
         Calculates the handtype of the board.
+        
         This is usefull to calculate if your hand is part of the best hand.
         example:
             board = ['4s', '7s', 'Kh', 'Kc']
