@@ -79,11 +79,7 @@ def upload_results(res):
     main_sheet.update("A1", "")
 
 
-def main():
-    # Plan:
-    # Download all the bots (snapshot) into a folder (in results?) from either github or gist
-    download_bots()
-
+def get_bots():
     bots = []
     # dynamically import them all
     # https://stackoverflow.com/a/1057534
@@ -108,6 +104,18 @@ def main():
         # make instance of class
         NClass = model()
         bots.append(NClass)
+    return bots
+
+
+def download_and_get_bots():
+    download_bots()
+    return get_bots()
+
+
+def main():
+    # Plan:
+    # Download all the bots (snapshot) into a folder (in results?) from either github or gist
+    bots = download_and_get_bots()
 
     # run the tournament with them
     challenge.PARTICIPANTS = bots
