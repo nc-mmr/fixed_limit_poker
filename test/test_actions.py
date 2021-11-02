@@ -85,12 +85,11 @@ class TestActions(TestCase):
         self.assertEqual(0, reward)
         self.assertEqual(90, obs.totalPot)
 
-        #try to raise a 5th time should result in fold
+        #try to raise a 5th time should result in call
         actionSpace,obs,reward,isDone = env.step(Action.RAISE)
-        self.assertListEqual([], actionSpace)
-        self.assertTrue(isDone)
-        self.assertEqual(-40, reward)
-        self.assertEqual(90, obs.totalPot)
+        self.assertListEqual([Action.CHECK, Action.RAISE], actionSpace)
+        self.assertFalse(isDone)
+        self.assertEqual(100, obs.totalPot)
 
     def testFoldWhenCheckIsAllowed(self):
         env = FixedLimitPoker([UnitTesterBot(actions=[Action.CALL, Action.CHECK]), EmptyBot()])

@@ -20,9 +20,9 @@ PATH_TO_BOTS_RELATIVE = f"results\\{PRETTY_TIMESTAMP}\\bots"
 PATH_TO_BOTS = join(dirname(__file__), PATH_TO_BOTS_RELATIVE)
 
 BOT_LOCATIONS = [
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
-    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/RandomBot.py",
+    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/TemplateBot.py",
+    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/TemplateBot.py",
+    "https://raw.githubusercontent.com/bovle/fixed_limit_poker/main/bots/TemplateBot.py",
     "https://gist.githubusercontent.com/VirtualSatai/3b329b8224cdb91ac67da296d630edba/raw/GistBot2.py",
     "https://gist.githubusercontent.com/VirtualSatai/3b329b8224cdb91ac67da296d630edba/raw/GistBot2.py"
 ]

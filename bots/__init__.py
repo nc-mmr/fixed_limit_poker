@@ -4,7 +4,7 @@ from .EmptyBot import EmptyBot
 from .PercentBot import PercentBot
 from .FoldBot import FoldBot
 from .CounterBot import CounterBot
-from .RandomBot import RandomBot
+from .TemplateBot import TemplateBot
 from .UnitTesterBot import UnitTesterBot
 from .ExceptionBot import ExceptionBot
 from .StallBot import StallBot
