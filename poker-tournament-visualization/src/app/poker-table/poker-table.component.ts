@@ -48,6 +48,14 @@ export class PokerTableComponent implements OnInit, OnChanges {
     this.history = this.game.hands[this.hand].history;
   }
 
+  getGameScore(player: string){
+    if(player == 'player1'){
+      return this.game.hands[this.hand].player1.total_reward_before
+    }
+    return this.game.hands[this.hand].player2.total_reward_before
+    
+  }
+
 
   getPlayer(handPlayer: HandPlayer1, player: TopLevelPlayer1): Player {
     return {
@@ -141,7 +149,7 @@ export class PokerTableComponent implements OnInit, OnChanges {
          break; 
       }
       case "FOLD": { 
-        actionText = "Foldq";
+        actionText = "Fold";
          break; 
       }
       default: { 

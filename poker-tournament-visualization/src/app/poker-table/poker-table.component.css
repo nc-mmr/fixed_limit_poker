@@ -149,3 +149,17 @@ app-dual-stack {
   width: 100%;
   text-align: right;
 }
+
+.gamescore{
+  position: absolute;  
+  font-size: larger;
+}
+
+
+.left.gamescore{
+  margin-left: 14%;
+}
+
+.right.gamescore{
+  margin-right: 140%;
+}

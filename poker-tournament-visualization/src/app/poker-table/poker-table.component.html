@@ -1,11 +1,19 @@
 <div class="borderOut">
   <div class="restFrame">
+    
+    <div class="gamescore left">
+      <label>{{getGameScore('player1')}}</label>
+    </div>
+    <div class="gamescore right">
+      <label>{{getGameScore('player2')}}</label>
+    </div>
     <div class="borderIn">
       <div class="wood">
         <div class="cloth">
           <div class="player left">
             <app-poker-player [player]="player1" [imgurl]="'https://icons.iconarchive.com/icons/noctuline/wall-e/256/EVE-icon.png'" [side]="'left'" [playerState]="player1Playerstate"></app-poker-player>
           </div>
+          
           <div class="community">
             <div class="pot">
               <label>{{pot}}</label>
