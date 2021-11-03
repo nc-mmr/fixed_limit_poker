@@ -1,4 +1,5 @@
 import json
+from typing import Tuple
 from environment import Player
 from environment.Constants import Action, Stage
 from environment.observers.Observer import Observer
@@ -96,11 +97,12 @@ class JsonObserver(Observer):
         self.player1Reward += observation.players[self.currentPlayer1Index].reward
         self.player2Reward += observation.players[self.currentPlayer2Index].reward
 
-    def ToJson(self, gameNbr: int, tournamentStage: str) -> str:
+    def ToSimpleObject(self, gameNbr: str, tournamentStage: str) -> Tuple[str, str]:
         self.res["game_nbr"] = gameNbr
         self.res["tournament_stage"] = tournamentStage
         self.res["player1"]["total_reward"] = self.player1Reward
         self.res["player1"]["winner"] = True if self.player1Reward >= self.player2Reward else False
         self.res["player2"]["total_reward"] = self.player2Reward
         self.res["player2"]["winner"] = True if self.player2Reward >= self.player1Reward else False
-        return json.dumps(self.res)
+        winnerName = self.player1Name if self.player1Reward >= self.player2Reward else self.player2Name
+        return self.res, winnerName

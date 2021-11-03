@@ -115,6 +115,7 @@ dmypy.json
 
 results/*.pckl
 results/*.csv
+results/*.json
 
 node_modules
 results/**/*.py

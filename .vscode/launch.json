@@ -39,7 +39,7 @@
             "name": "Python: Tournament",
             "type": "python",
             "request": "launch",
-            "program": "tournament.py",
+            "program": "visual_tournament_runner.py",
             "console": "integratedTerminal"
         },
         {
