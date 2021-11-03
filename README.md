@@ -26,13 +26,13 @@ Todo liste
   - [X] Tilføj console observer - Troels
   - [X] Tilføj Websocket observer - Troels
 - [X] Tilføj tests - Bovle
-- [ ] Lav UI - Harder
+- [x] Lav UI - Harder
   - [x]  slider for hænder i kamp
   - [x]  vis action som skrift på avatar
-  - [ ]  vis score for kamp
-  - [ ]  vis hånd typer ved showdown
-  - [ ]  vis chips vundet ved showdown
-  - [ ]  fix state 0
+  - [x]  vis score for kamp
+  - [x]  vis hånd typer ved showdown
+  - [x]  vis chips vundet ved showdown
+  - [x]  fix state 0
   - [x]  slider ændringer korrekt
 - [X] Lav UI Data
   - [X] JSON kamp data 
