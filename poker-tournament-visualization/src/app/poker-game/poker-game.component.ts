@@ -72,6 +72,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
   handSliderOnChange(event: any) {
     this.hand = event.value;
     this.actionSlider = 0;
+    this.setStage(0)
   }
 }
 
