@@ -67,7 +67,7 @@ export enum Stage {
   Turn = "TURN",
   River = "RIVER",
   Showdown = "SHOWDOWN",
-  EndHidden = "ENDHIDDEN"
+  EndHidden = "END_HIDDEN"
 }
 
 @Injectable({

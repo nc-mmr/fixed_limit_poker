@@ -67,9 +67,9 @@ export class PokerTableComponent implements OnInit, OnChanges {
   }
 
   setPlayerState(player: string): PlayerState{
-    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: ''};
-    if((this.stage == Stage.Showdown|| this.stage == Stage.EndHidden) && this.isPlayerWinner(player, this.game.hands[this.hand])){
-      playerstate.chips_wagered = this.game.hands[this.hand].abs_reward
+    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: '', score: this.getGameScore(player)};
+    if((this.stage == Stage.Showdown || this.stage == Stage.EndHidden) && this.isPlayerWinner(player, this.game.hands[this.hand])){
+      playerstate.chips_wagered = this.game.hands[this.hand].abs_reward * 2
     }else{
       for (let index = 0; index <= this.step; index++) {
         const history = this.history[index];
