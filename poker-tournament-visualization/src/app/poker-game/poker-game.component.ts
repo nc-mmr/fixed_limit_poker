@@ -20,8 +20,7 @@ export class PokerGameComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     const element = document.getElementById('slider');
-    setTimeout(function() { element?.focus() }, 20);
-    
+    setTimeout(function() { element?.focus() }, 20);    
   }
 
   ngOnChanges(): void {
@@ -42,6 +41,10 @@ export class PokerGameComponent implements OnInit, OnChanges {
         currentStage = Stage.Turn;
       } else if (action == Stage.River) {
         currentStage = Stage.River;
+      } else if (action == Stage.EndHidden) {
+        currentStage = Stage.EndHidden;
+      }else if (action == Stage.Showdown) {
+        currentStage = Stage.Showdown;
       }
     }
     this.stage = currentStage;
