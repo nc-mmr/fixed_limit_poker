@@ -152,6 +152,10 @@ export class PokerTableComponent implements OnInit, OnChanges {
         actionText = "Fold";
          break; 
       }
+      case "CHECK": { 
+        actionText = "Check";
+         break; 
+      }
       default: { 
         actionText = ""
          break; 
