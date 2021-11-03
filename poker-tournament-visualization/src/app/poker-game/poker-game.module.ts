@@ -26,7 +26,7 @@ import { ChipsComponent } from '../chips/chips.component';
     CommonModule,
     MatSliderModule,
     MatGridListModule,
-    FormsModule,
+    FormsModule,    
   ],
   exports: [
     PokerGameComponent,

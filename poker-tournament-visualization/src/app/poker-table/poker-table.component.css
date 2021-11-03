@@ -137,7 +137,7 @@ app-dual-stack {
 
 .community .pot app-stacker{
   position: absolute;
-  right: 45%;
+  right: 35%;
 }
 
 .community app-card-group {
@@ -148,4 +148,18 @@ app-dual-stack {
 .right app-poker-player .background {
   width: 100%;
   text-align: right;
+}
+
+.gamescore{
+  position: absolute;  
+  font-size: larger;
+}
+
+
+.left.gamescore{
+  margin-left: 14%;
+}
+
+.right.gamescore{
+  margin-right: 140%;
 }

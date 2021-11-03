@@ -18,8 +18,8 @@ export class PokerTableComponent implements OnInit, OnChanges {
 
   player1!: Player;
   player2!: Player;
-  player1Playerstate: PlayerState = {chips_wagered: 0, stack: 1000, next_to_act: false, action: ''};
-  player2Playerstate: PlayerState= {chips_wagered: 0, stack: 1000, next_to_act: false, action: ''};
+  player1Playerstate: PlayerState = {chips_wagered: 0, stack: 1000, next_to_act: false, action: '', score: 0};
+  player2Playerstate: PlayerState= {chips_wagered: 0, stack: 1000, next_to_act: false, action: '', score: 0};
   player1link="https://media-exp1.licdn.com/dms/image/C5603AQGAUW9uU9JtGw/profile-displayphoto-shrink_200_200/0/1581669563810?e=1640217600&v=beta&t=WHteJ76sNXQZ9l6yySjTvMNTyExfgZtYPa5WRIctkyk"
   player2link="https://media-exp1.licdn.com/dms/image/C5603AQHxqi2EjCLiKQ/profile-displayphoto-shrink_200_200/0/1580829910259?e=1640217600&v=beta&t=6Ry0x-EzdCjOmgaIcXGoO4jrZv7Uh2ROx2ymfOr3ag4"
   pot = 0
@@ -48,6 +48,14 @@ export class PokerTableComponent implements OnInit, OnChanges {
     this.history = this.game.hands[this.hand].history;
   }
 
+  getGameScore(player: string){
+    if(player == 'player1'){
+      return this.game.hands[this.hand].player1.total_reward_before
+    }
+    return this.game.hands[this.hand].player2.total_reward_before
+    
+  }
+
 
   getPlayer(handPlayer: HandPlayer1, player: TopLevelPlayer1): Player {
     return {
@@ -59,7 +67,7 @@ export class PokerTableComponent implements OnInit, OnChanges {
   }
 
   setPlayerState(player: string): PlayerState{
-    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: ''};
+    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: '', score: this.getGameScore(player)};
     for (let index = 0; index <= this.step; index++) {
       const history = this.history[index];
       if(history.player == player){
@@ -141,7 +149,11 @@ export class PokerTableComponent implements OnInit, OnChanges {
          break; 
       }
       case "FOLD": { 
-        actionText = "Foldq";
+        actionText = "Fold";
+         break; 
+      }
+      case "CHECK": { 
+        actionText = "Check";
          break; 
       }
       default: { 

@@ -58,6 +58,7 @@ export interface PlayerState {
   stack: number;
   next_to_act: boolean;
   action: string;
+  score: number;
 }
 
 export enum Stage {
