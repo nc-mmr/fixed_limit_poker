@@ -2,8 +2,8 @@
 <mat-slider id="slider" #slider [(ngModel)]="actionSlider" min="0" max="{{getMaxActions()}}"
     [tickInterval]="'1'" (input)="sliderOnChange($event)"></mat-slider>
 <p>Current action {{actionSlider}} of {{getMaxActions()}}</p>
-<app-poker-action [action]="getCurrentAction()"></app-poker-action>
+<!--<app-poker-action [action]="getCurrentAction()"></app-poker-action>-->
 
 <mat-slider id="handslider" #slider [(ngModel)]="hand" min="0" max="{{getMaxHands()}}"
     [tickInterval]="'1'" (input)="handSliderOnChange($event)"></mat-slider>
-
+<p>Current hand {{hand}} of {{getMaxHands()}}</p>
