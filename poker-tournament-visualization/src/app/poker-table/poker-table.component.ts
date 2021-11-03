@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
 import { Component, Input, OnChanges, OnInit, SimpleChange } from '@angular/core';
-import { HandPlayer1, History, Player, PlayerState, PokerGame, Stage, TopLevelPlayer1 } from '../poker-game/poker-game.service';
+import { Hand, HandPlayer1, History, Player, PlayerState, PokerGame, Stage, TopLevelPlayer1 } from '../poker-game/poker-game.service';
 
 @Component({
   selector: 'app-poker-table',
@@ -67,27 +67,46 @@ export class PokerTableComponent implements OnInit, OnChanges {
   }
 
   setPlayerState(player: string): PlayerState{
-    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: '', score: this.getGameScore(player)};
-    for (let index = 0; index <= this.step; index++) {
-      const history = this.history[index];
-      if(history.player == player){
-        playerstate.chips_wagered = history.stage_contribution!
-        playerstate.stack = history.stack!
-      }
-      if(history.pot != null){
-        playerstate.chips_wagered = 0
-      }
-    }  
+    let playerstate: PlayerState = {stack: 0, chips_wagered: 0, next_to_act: false, action: ''};
+    if((this.stage == Stage.Showdown|| this.stage == Stage.EndHidden) && this.isPlayerWinner(player, this.game.hands[this.hand])){
+      playerstate.chips_wagered = this.game.hands[this.hand].abs_reward
+    }else{
+      for (let index = 0; index <= this.step; index++) {
+        const history = this.history[index];
+        if(history.player == player){
+          playerstate.chips_wagered = history.stage_contribution!
+          playerstate.stack = history.stack!
+        }
+        if(history.pot != null){
+          playerstate.chips_wagered = 0
+        }        
+      } 
+    }
+     
     if (this.history.length - 1  > this.step + 1 && this.history[this.step+1].player == player){
       playerstate.next_to_act = true
     }
     if( this.history[this.step].player == player){
       playerstate.action = this.getActionText(this.history[this.step].action)
     }else{
-      playerstate.action = ''
+      playerstate.action = this.stage == Stage.Showdown ? this.getHandType(player,this.history[this.step]) : ''      
+      
     }
-    console.log('playerstate', this.history[this.step])
     return playerstate;    
+  }
+
+  isPlayerWinner(player: string, hand: Hand){
+    if(player == 'player1'){
+      return hand.player1.winner
+    }
+    return hand.player2.winner
+  }
+
+  getHandType(player: string,history: History): string{
+    if(player == 'player1'){
+      return history.player1_hand_type!
+    }
+    return history.player2_hand_type!
   }
 
   setCommunity(): void {
@@ -112,14 +131,15 @@ export class PokerTableComponent implements OnInit, OnChanges {
         community.push(...cards);
       }
     }
-    if (this.stage == Stage.River || this.stage == Stage.Showdown) {
+    if (this.stage == Stage.River || this.stage == Stage.Showdown|| this.stage == Stage.EndHidden) {
       const currenthistory = this.game.hands[this.hand].history[this.getStageIndex(Stage.River)]
       const cards = currenthistory!.board_cards;   
-      pot = currenthistory!.pot!
+      pot = this.stage == Stage.River ? currenthistory!.pot! : 0
       if (cards != undefined) {
         community.push(...cards);
       }
     }
+    
     this.pot = pot
     this.community = community;
   }
