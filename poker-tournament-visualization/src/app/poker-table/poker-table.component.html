@@ -1,12 +1,5 @@
 <div class="borderOut">
   <div class="restFrame">
-    
-    <div class="gamescore left">
-      <label>{{getGameScore('player1')}}</label>
-    </div>
-    <div class="gamescore right">
-      <label>{{getGameScore('player2')}}</label>
-    </div>
     <div class="borderIn">
       <div class="wood">
         <div class="cloth">
@@ -16,7 +9,7 @@
           
           <div class="community">
             <div class="pot">
-              <label>{{pot}}</label>
+              <label class="text_glow">Pot: {{pot}}$</label>
               <app-stacker [valor]="pot"></app-stacker>
             </div>
             <app-card-group [cards]="community" [overlap]="true"></app-card-group>
