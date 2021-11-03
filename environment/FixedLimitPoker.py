@@ -29,8 +29,9 @@ class FixedLimitPoker:
     raiseCount: int
     evaluator: Evaluator
     observers: List[Observer]
+    punishSlowBots: bool
 
-    def __init__(self, players: List[BotInterface], smallBlind=5, bigBlind=10, stackSize = 1000, observers=[]):
+    def __init__(self, players: List[BotInterface], smallBlind=5, bigBlind=10, stackSize = 1000, observers=[], punishSlowBots=True):
         self.players = [Player(player) for player in players]
         self.numPlayers = len(self.players)
         self.smallBlind = smallBlind
@@ -38,6 +39,7 @@ class FixedLimitPoker:
         self.stackSize = stackSize
         self.evaluator = Evaluator()
         self.observers = observers
+        self.punishSlowBots = punishSlowBots
 
     def reset(self, rotatePlayers=False, stackedDeck:List[str]=[]) -> Tuple[List[Action],Observation,int,bool]:    
         self.boardCards = []
@@ -223,7 +225,7 @@ class FixedLimitPoker:
             startTime = time.time()
             move = self.getCurrentPlayer().bot.act(self.actionSpace, self.getObservation())
             actTime = time.time() - startTime
-            if not __debug__ and actTime >= 1:
+            if self.punishSlowBots and actTime >= 1:
                 move = Action.FOLD
                 print(f"Bot: '{self.getCurrentPlayer().bot.name}' took too long ({actTime}) to return. Folding on their behalf.")
         except Exception as ex:

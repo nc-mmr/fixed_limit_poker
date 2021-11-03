@@ -11,7 +11,7 @@ def debug():
         # Change the bots here to change the participants
         PercentBot(),
         TemplateBot()
-    ], observers=observers)
+    ], observers=observers, punishSlowBots=False)
     env.reset()
     env.reset(rotatePlayers=True)
 
@@ -28,7 +28,7 @@ def benchmark():
     cols = [x.name for x in bots]
     stats = pd.DataFrame(0, columns=cols, index=cols + ["sum", "pr. round"])
     for c in combinations:
-        room = FixedLimitPoker(c)
+        room = FixedLimitPoker(c, punishSlowBots=False)
         for _ in range(roundsPerPair):
             room.reset(rotatePlayers=True)
             p1 = room.players[0]
