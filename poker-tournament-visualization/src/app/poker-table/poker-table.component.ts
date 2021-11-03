@@ -131,10 +131,19 @@ export class PokerTableComponent implements OnInit, OnChanges {
         community.push(...cards);
       }
     }
-    if (this.stage == Stage.River || this.stage == Stage.Showdown|| this.stage == Stage.EndHidden) {
+    if (this.stage == Stage.River) {
       const currenthistory = this.game.hands[this.hand].history[this.getStageIndex(Stage.River)]
       const cards = currenthistory!.board_cards;   
       pot = this.stage == Stage.River ? currenthistory!.pot! : 0
+      if (cards != undefined) {
+        community.push(...cards);
+      }
+    }
+
+    if (this.stage == Stage.Showdown || this.stage == Stage.EndHidden){
+      const currenthistory = this.game.hands[this.hand].history[this.getStageIndex(this.stage)]
+      const cards = currenthistory!.board_cards;   
+      pot = 0
       if (cards != undefined) {
         community.push(...cards);
       }
