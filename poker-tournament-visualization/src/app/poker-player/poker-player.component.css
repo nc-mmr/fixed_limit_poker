@@ -23,6 +23,7 @@
 .chips {
     position: relative;
     left: 100%;
+    font-size: 1rem;
 }
 
 .right .chips {
@@ -97,8 +98,9 @@ p.name {
 
 .score {
     position: absolute;
-    top: -10%;
-    left: 15%
+    top: -13%;
+    left: 15%;
+    font-size: 2rem;
 }
 
 .right .score {
