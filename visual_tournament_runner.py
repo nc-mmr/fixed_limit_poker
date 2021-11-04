@@ -8,7 +8,7 @@ from environment.observers.JsonObserver import JsonObserver
 from tournament_runner import get_bots, download_and_get_bots
 
 def main():
-    handsPerGame = 10
+    handsPerGame = 100
     bots = download_and_get_bots()
     players = {}
     for bot in bots:
@@ -21,7 +21,7 @@ def main():
 
     tournament = Tournament(list(players.keys()))
     
-    tournament.generate_bracket('single', True)
+    tournament.generate_bracket('single', False)
     games = []
     for game_id, game_data in tournament.games.items():
         obs = JsonObserver()

@@ -8,13 +8,37 @@ import { PokerGame, PokerGameService, Stage, History } from './poker-game.servic
   styleUrls: ['./poker-game.component.css']
 })
 export class PokerGameComponent implements OnInit, OnChanges {
+  games: PokerGame[];
+  gamesUI: any[];
+  selectedGameIdx: number = 0;
   game: PokerGame;
+  sortedHands: { idx: number; score: number; }[];
   stage: Stage;
-  actionSlider: number = 0;
-  hand: number = 0;
+  actionIdx: number = 0;
+  handIdx: number = 0;
+  isPlay: boolean = false;
+  speedInput: number = 4;
+  speed: number = 4;
+  handCountInput: number = 5;
+  handCount: number = 5;
+  interestingHands: number[] = []
+  interestingHandIdx = 0;
+  interval: any;
 
   constructor(private pokerGameService: PokerGameService) {
-    this.game = this.pokerGameService.game[0];
+    this.games = this.pokerGameService.game
+    this.game = this.games[0];
+    this.gamesUI = []
+    for(let i = 0; i<this.games.length; i++){
+      let g = this.games[i];
+      this.gamesUI.push({
+        "idx": i, 
+        "number": g.game_nbr, 
+        "stage_num":Number(g.tournament_stage), 
+        "stage_string": this.getTournamentStageString(g.tournament_stage)
+      });
+    }
+    this.sortedHands = this.getSortedHands()
     this.stage = Stage.Preflop;
   }
 
@@ -28,11 +52,88 @@ export class PokerGameComponent implements OnInit, OnChanges {
     this.setStage()
   }
 
+  getTournamentStageString(stageString: String): String{
+    switch(stageString){
+      case "1":
+        return "Grand Final";
+      case "2":
+        return "Semi Final";
+      case "3":
+        return "Quater Final";
+      case "4":
+        return "Round of 8";
+      case "5":
+        return "Round of 16";
+    }
+    return stageString;
+  }
+
+  getSortedHands(){
+    let res: { idx: number; score: number; }[] = [];
+    this.game.hands.forEach((h) =>{
+      res.push({"idx": h.nbr-1, "score": h.abs_reward})
+    });
+    res.sort((a,b) => b.score - a.score)
+    console.log(res)
+    return res
+  }
+
+  getTopHands(){
+    return this.sortedHands.slice(0,this.handCount).sort((a,b) => a.idx - b.idx)
+  }
+
+  toggle(){
+    this.isPlay = !this.isPlay;
+    if(this.isPlay){
+      let endReached = false;
+
+      this.interestingHandIdx = 0;
+      let interestingHands = this.getTopHands();
+      this.handSliderOnChange(interestingHands[this.interestingHandIdx].idx);
+      this.interval = setInterval(() => {
+        if (this.isPlay){
+          if (this.actionIdx < this.getMaxActions()){
+            this.sliderOnChange(this.actionIdx + 1);
+          }else if(this.actionIdx == this.getMaxActions() && endReached){
+            this.interestingHandIdx += 1;
+            endReached = false;
+            if (this.interestingHandIdx < this.handCount){
+              this.handSliderOnChange(interestingHands[this.interestingHandIdx].idx);
+            }else{
+              this.handSliderOnChange(this.getMaxHands());
+              this.sliderOnChange(this.getMaxActions());
+              this.toggle();
+            }
+          }else{
+            endReached = true;
+          }
+          
+        }
+      }, this.speed * 1000);
+    }else{
+      if(this.interval){
+        clearInterval(this.interval)
+      }
+    }
+  }
+
+  isGameSelected(game:any){
+    return game.idx == this.selectedGameIdx;
+  }
+
+  gameClick(game:any){
+    this.selectedGameIdx = game.idx;
+    this.game = this.games[this.selectedGameIdx];
+    this.sortedHands = this.getSortedHands();
+    this.stage = Stage.Preflop;
+    this.resetSliders();
+  }
+
   setStage(val?: number): void {
-    const newValue = val ?? this.actionSlider;
+    const newValue = val ?? this.actionIdx;
     let currentStage = Stage.Preflop;
     for (let index = 0; index <= newValue; index++) {
-      const action = this.game.hands[this.hand].history[index].action;
+      const action = this.game.hands[this.handIdx].history[index].action;
       if (action == Stage.Preflop) {
         currentStage = Stage.Preflop;
       } else if (action == Stage.Flop) {
@@ -51,28 +152,52 @@ export class PokerGameComponent implements OnInit, OnChanges {
   }
 
   getMaxActions(): number {
-    const actions = this.game.hands[this.hand].history.length-1;
+    const actions = this.game.hands[this.handIdx].history.length-1;
     return actions; // +1 for the show-down
   }
 
   getCurrentAction(): History {
-    const idx = this.actionSlider;
-    return this.game.hands[this.hand].history[idx];
+    const idx = this.actionIdx;
+    return this.game.hands[this.handIdx].history[idx];
   }
 
-  sliderOnChange(event: any) {
-    this.setStage(event.value)
-    this.actionSlider = event.value
+  sliderOnChange(val: any) {
+    this.setStage(val)
+    this.actionIdx = val
   }
 
   getMaxHands(): number {
     const hands = this.game.hands.length-1;
     return hands; // +1 for the show-down
   }
-  handSliderOnChange(event: any) {
-    this.hand = event.value;
-    this.actionSlider = 0;
+  handSliderOnChange(val: any) {
+    this.handIdx = val;
+    this.actionIdx = 0;
     this.setStage(0)
+  }
+
+  speedOnChange(){
+    if(Number(this.speedInput)){
+      this.speed = Number(this.speedInput);
+      this.resetSliders();
+      
+    }
+  }
+
+  handCountOnChange(){
+    if(Number(this.handCountInput)){
+      this.handCount = Number(this.handCountInput)
+      this.interestingHandIdx = 0;
+      this.resetSliders();
+    }
+  }
+
+  resetSliders(){
+    this.sliderOnChange(0);
+      this.handSliderOnChange(0);
+      if(this.isPlay){
+        this.toggle();
+      }
   }
 }
 
