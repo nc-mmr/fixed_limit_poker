@@ -54,18 +54,13 @@ class Meyer(BotInterface):
                     return Action.FOLD
                 else:
                     return Action.RAISE
-
-        # default fold
         return Action.FOLD
 
     def handlePostFlop(self, observation: Observation, last_action, action_space) -> Action:
-        # get my hand's percent value (how good is the best 5 card hand i can make out of all possible 5 card hands)
         handPercent, cards = calHand(
             observation.myHand, observation.boardCards)
-        # if my hand is top 30 percent: raise
         if handPercent <= .30:
             if last_action is None:
-                # opponent didn't do anything yet for us to counter, just raise
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
                 if len(observation.get_opponent_history_current_stage()) > 4:
@@ -79,13 +74,11 @@ class Meyer(BotInterface):
                     return Action.RAISE
 
             return Action.CALL
-        # if my hand is top 80 percent: call
         elif handPercent <= .80:
             if last_action is None:
-                # opponent didn't do anything yet for us to counter, just raise
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
-                if len(observation.get_opponent_history_current_stage()) > 4:
+                if len(observation.get_opponent_history_current_stage()) > 3:
                     return Action.FOLD
                 else:
                     return Action.CALL
@@ -94,9 +87,7 @@ class Meyer(BotInterface):
                     return Action.FOLD
                 else:
                     return Action.CALL
-
             return random.choice(action_space)
-        # else fold
         return Action.FOLD
 
 def calHand(hand: Sequence[str], board: Sequence[str] = []) -> float:
