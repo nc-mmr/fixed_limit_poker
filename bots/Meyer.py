@@ -73,4 +73,4 @@ class Meyer(BotInterface):
 
             return Action.FOLD
         # else fold
-        return Action.CALL
+        return Action.FOLD
