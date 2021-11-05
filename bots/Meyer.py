@@ -32,16 +32,19 @@ class Meyer(BotInterface):
 
         handPercent, _ = getHandPercent(observation.myHand)
         # if my hand is top 20 percent: raise
-        if handPercent < .20:
+        if handPercent < .30:
             return Action.RAISE
         # if my hand is top 60 percent: call
-        elif handPercent < .60:
+        elif handPercent < .70:
             if last_action is None:
                 # opponent didn't do anything yet for us to counter, just raise
-                return Action.CALL
+                return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
                 # opponent checked, try to steal the pot with a raise
-                return Action.RAISE
+                if len(observation.get_opponent_history_current_stage()) > 4:
+                    return Action.FOLD
+                else:
+                    return Action.RAISE
             elif last_action == Action.RAISE:
                 # opponent raise, probably has good cards so fold
                 return Action.CALL
@@ -59,8 +62,10 @@ class Meyer(BotInterface):
                 # opponent didn't do anything yet for us to counter, just raise
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
-                # opponent checked, try to steal the pot with a raise
-                return Action.RAISE
+                if len(observation.get_opponent_history_current_stage()) > 4:
+                    return Action.FOLD
+                else:
+                    return Action.RAISE
             elif last_action == Action.RAISE:
                 # opponent raise, probably has good cards so fold
                 return random.choice(action_space)
