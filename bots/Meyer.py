@@ -5,7 +5,7 @@ from typing import Sequence
 from bots.BotInterface import BotInterface
 from environment.Constants import Action, Stage
 from environment.Observation import Observation
-from utils.handValue import getHandPercent
+from utils.handValue import *
 
 # your bot class, rename to match the file name
 class Meyer(BotInterface):
@@ -28,9 +28,13 @@ class Meyer(BotInterface):
 
         return self.handlePostFlop(observation, last_action, action_space)
 
+
+
+
+
     def handlePreFlop(self, observation: Observation, last_action, action_space) -> Action:
 
-        handPercent, _ = getHandPercent(observation.myHand)
+        handPercent, _ = calHand(observation.myHand)
         # if my hand is top 20 percent: raise
         if handPercent < .30:
             return Action.RAISE
@@ -54,7 +58,7 @@ class Meyer(BotInterface):
 
     def handlePostFlop(self, observation: Observation, last_action, action_space) -> Action:
         # get my hand's percent value (how good is the best 5 card hand i can make out of all possible 5 card hands)
-        handPercent, cards = getHandPercent(
+        handPercent, cards = calHand(
             observation.myHand, observation.boardCards)
         # if my hand is top 30 percent: raise
         if handPercent <= .30:
@@ -88,3 +92,12 @@ class Meyer(BotInterface):
             return random.choice(action_space)
         # else fold
         return Action.FOLD
+
+def calHand(hand: Sequence[str], board: Sequence[str] = []) -> float:
+
+    if getHandType(hand, board) == getBoardHandType(board):
+        return getHandPercent(
+            hand) 
+    else:
+        return getHandPercent(
+        hand, board)
