@@ -45,12 +45,12 @@ class Meyer(BotInterface):
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
                 # opponent checked, try to steal the pot with a raise
-                if len(observation.get_opponent_history_current_stage()) > 4:
+                if len(observation.get_opponent_history_current_stage()) > 2:
                     return Action.FOLD
                 else:
                     return Action.RAISE
             elif last_action == Action.RAISE:
-                if len(observation.get_opponent_history_current_stage()) > 4:
+                if len(observation.get_opponent_history_current_stage()) > 2:
                     return Action.FOLD
                 else:
                     return Action.RAISE
@@ -78,12 +78,12 @@ class Meyer(BotInterface):
             if last_action is None:
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
-                if len(observation.get_opponent_history_current_stage()) > 3:
+                if len(observation.get_opponent_history_current_stage()) > 2:
                     return Action.CALL
                 else:
                     return Action.RAISE
             elif last_action == Action.RAISE:
-                if len(observation.get_opponent_history_current_stage()) > 4:
+                if len(observation.get_opponent_history_current_stage()) > 3:
                     return Action.FOLD
                 else:
                     return Action.CALL
