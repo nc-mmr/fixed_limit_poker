@@ -20,13 +20,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dfb6899a-9f7a-4b32-a67f-36b6f4f1b238" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/bots/Meyer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/fixed_limit_poker.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/fixed_limit_poker.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -49,8 +58,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/main.py" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunManager">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
@@ -97,31 +107,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="734" y="355" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1634805834041">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="734" y="355" width="1092" height="714" key="#com.intellij.execution.impl.EditConfigurationsDialog/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634805834041" />
-    <state x="1060" y="467" key="FileChooserDialogImpl" timestamp="1634805826283">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state x="1060" y="467" key="FileChooserDialogImpl/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634805826283" />
-    <state width="2539" height="401" key="GridCell.Tab.0.bottom" timestamp="1634806042314">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state width="2539" height="401" key="GridCell.Tab.0.bottom/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634806042314" />
-    <state width="2539" height="401" key="GridCell.Tab.0.center" timestamp="1634806042314">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state width="2539" height="401" key="GridCell.Tab.0.center/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634806042314" />
-    <state width="2539" height="401" key="GridCell.Tab.0.left" timestamp="1634806042314">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state width="2539" height="401" key="GridCell.Tab.0.left/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634806042314" />
-    <state width="2539" height="401" key="GridCell.Tab.0.right" timestamp="1634806042314">
-      <screen x="0" y="0" width="2560" height="1400" />
-    </state>
-    <state width="2539" height="401" key="GridCell.Tab.0.right/2560.0.2560.1400/0.0.2560.1400@0.0.2560.1400" timestamp="1634806042314" />
   </component>
 </project>
