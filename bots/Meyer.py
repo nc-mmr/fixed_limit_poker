@@ -77,8 +77,10 @@ class Meyer(BotInterface):
                 # opponent didn't do anything yet for us to counter, just raise
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
-                # opponent checked, try to steal the pot with a raise
-                return Action.RAISE
+                if len(observation.get_opponent_history_current_stage()) > 4:
+                    return Action.FOLD
+                else:
+                    return Action.RAISE
             elif last_action == Action.RAISE:
                 # opponent raise, probably has good cards so fold
                 return Action.FOLD
