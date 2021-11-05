@@ -93,7 +93,7 @@ class Meyer(BotInterface):
                 if len(observation.get_opponent_history_current_stage()) > 4:
                     return Action.FOLD
                 else:
-                    return Action.RAISE
+                    return Action.CALL
 
             return random.choice(action_space)
         # else fold
