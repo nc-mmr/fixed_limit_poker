@@ -86,8 +86,10 @@ class Meyer(BotInterface):
                 else:
                     return Action.RAISE
             elif last_action == Action.RAISE:
-                # opponent raise, probably has good cards so fold
-                return Action.FOLD
+                if len(observation.get_opponent_history_current_stage()) > 4:
+                    return Action.FOLD
+                else:
+                    return Action.RAISE
 
             return random.choice(action_space)
         # else fold
@@ -97,7 +99,7 @@ def calHand(hand: Sequence[str], board: Sequence[str] = []) -> float:
 
     if getHandType(hand, board) == getBoardHandType(board):
         return getHandPercent(
-            hand) 
+            hand)
     else:
         return getHandPercent(
         hand, board)
