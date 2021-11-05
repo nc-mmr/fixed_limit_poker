@@ -1,4 +1,5 @@
 from bots.Meyer import Meyer
+from bots.Meyer2 import Meyer2
 from environment.observers.LoggingObserver import LoggingObserver
 from environment.FixedLimitPoker import FixedLimitPoker
 from bots import TemplateBot, CounterBot, PercentBot
@@ -21,6 +22,7 @@ def benchmark():
     bots = [
         # Change the bots here to change the participants
         Meyer(),
+        Meyer2(),
         PercentBot(),
         TemplateBot(),
         CounterBot(),
