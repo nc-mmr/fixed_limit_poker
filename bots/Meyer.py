@@ -83,7 +83,7 @@ class Meyer(BotInterface):
                 else:
                     return Action.RAISE
             elif last_action == Action.RAISE:
-                if len(observation.get_opponent_history_current_stage()) > 3:
+                if len(observation.get_opponent_history_current_stage()) > 4:
                     return Action.FOLD
                 else:
                     return Action.CALL
