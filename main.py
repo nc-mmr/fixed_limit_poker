@@ -1,3 +1,4 @@
+from bots.Meyer import Meyer
 from environment.observers.LoggingObserver import LoggingObserver
 from environment.FixedLimitPoker import FixedLimitPoker
 from bots import TemplateBot, CounterBot, PercentBot
@@ -9,7 +10,7 @@ def debug():
     observers = [LoggingObserver()]
     env = FixedLimitPoker([
         # Change the bots here to change the participants
-        PercentBot(),
+        Meyer(),
         TemplateBot()
     ], observers=observers, punishSlowBots=False)
     env.reset()
@@ -19,7 +20,7 @@ def debug():
 def benchmark():
     bots = [
         # Change the bots here to change the participants
-        CounterBot(),
+        Meyer(),
         PercentBot(),
         # TemplateBot(),
     ]
@@ -43,5 +44,5 @@ def benchmark():
     print(stats)
 
 
-# benchmark()
-debug()
+benchmark()
+#debug()
