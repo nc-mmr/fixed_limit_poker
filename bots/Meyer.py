@@ -24,25 +24,32 @@ class Meyer(BotInterface):
             opponent_actions_this_round) > 0 else None
 
         if stage == Stage.PREFLOP:
-            return self.handlePreFlop(observation, last_action)
+            return self.handlePreFlop(observation, last_action, action_space)
 
-        return self.handlePostFlop(observation, last_action)
+        return self.handlePostFlop(observation, last_action, action_space)
 
-    def handlePreFlop(self, observation: Observation, last_action) -> Action:
-        if last_action is None:
-            # opponent didn't do anything yet for us to counter, just raise
+    def handlePreFlop(self, observation: Observation, last_action, action_space) -> Action:
+
+        handPercent, _ = getHandPercent(observation.myHand)
+        # if my hand is top 20 percent: raise
+        if handPercent < .20:
             return Action.RAISE
-        elif last_action in [Action.CHECK, Action.CALL]:
-            # opponent checked, try to steal the pot with a raise
-            return Action.RAISE
-        elif last_action == Action.RAISE:
-            # opponent raise, probably has good cards so fold
-            return Action.FOLD
+        # if my hand is top 60 percent: call
+        elif handPercent < .60:
+            if last_action is None:
+                # opponent didn't do anything yet for us to counter, just raise
+                return Action.CALL
+            elif last_action in [Action.CHECK, Action.CALL]:
+                # opponent checked, try to steal the pot with a raise
+                return Action.RAISE
+            elif last_action == Action.RAISE:
+                # opponent raise, probably has good cards so fold
+                return Action.CALL
 
         # default fold
-        return Action.CALL
+        return Action.FOLD
 
-    def handlePostFlop(self, observation: Observation, last_action) -> Action:
+    def handlePostFlop(self, observation: Observation, last_action, action_space) -> Action:
         # get my hand's percent value (how good is the best 5 card hand i can make out of all possible 5 card hands)
         handPercent, cards = getHandPercent(
             observation.myHand, observation.boardCards)
@@ -56,14 +63,14 @@ class Meyer(BotInterface):
                 return Action.RAISE
             elif last_action == Action.RAISE:
                 # opponent raise, probably has good cards so fold
-                return Action.RAISE
+                return random.choice(action_space)
 
             return Action.CALL
         # if my hand is top 80 percent: call
         elif handPercent <= .80:
             if last_action is None:
                 # opponent didn't do anything yet for us to counter, just raise
-                return Action.CALL
+                return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
                 # opponent checked, try to steal the pot with a raise
                 return Action.RAISE
@@ -71,6 +78,6 @@ class Meyer(BotInterface):
                 # opponent raise, probably has good cards so fold
                 return Action.FOLD
 
-            return Action.FOLD
+            return random.choice(action_space)
         # else fold
         return Action.FOLD
