@@ -79,9 +79,9 @@ class Meyer(BotInterface):
                 return Action.RAISE
             elif last_action in [Action.CHECK, Action.CALL]:
                 if len(observation.get_opponent_history_current_stage()) > 3:
-                    return Action.FOLD
-                else:
                     return Action.CALL
+                else:
+                    return Action.RAISE
             elif last_action == Action.RAISE:
                 if len(observation.get_opponent_history_current_stage()) > 3:
                     return Action.FOLD
